@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X, Bookmark, Wallet, Presentation } from "lucide-react";
+import { Menu, X, Bookmark, Wallet } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
@@ -120,21 +120,6 @@ export function Header() {
 
           {/* Account zone */}
           <NavLink
-            to="/deck"
-            className={({ isActive }) =>
-              cn(
-                "hidden md:inline-flex items-center gap-1.5 h-9 px-2.5 rounded-md text-[13px] font-medium transition-colors",
-                isActive
-                  ? "bg-secondary text-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary",
-              )
-            }
-            aria-label="Pitch deck"
-          >
-            <Presentation className="h-4 w-4" />
-            <span className="hidden xl:inline">Deck</span>
-          </NavLink>
-          <NavLink
             to="/portfolio"
             className={({ isActive }) =>
               cn(
@@ -193,21 +178,6 @@ export function Header() {
                   {item.label}
                 </NavLink>
               ))}
-              <NavLink
-                to="/deck"
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                  cn(
-                    "px-3 py-2.5 rounded-md font-medium flex items-center gap-2",
-                    isActive
-                      ? "bg-secondary text-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/60",
-                  )
-                }
-              >
-                <Presentation className="h-4 w-4" />
-                Deck
-              </NavLink>
               <NavLink
                 to="/portfolio"
                 onClick={() => setIsOpen(false)}
