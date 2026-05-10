@@ -1,0 +1,257 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Mono palette — near black bg, near white fg */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
+
+    --elevated: 0 0% 9%;
+
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Brand: a single confident electric lime */
+    --primary: 75 100% 56%;
+    --primary-foreground: 0 0% 6%;
+
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 0 0% 96%;
+
+    --muted: 0 0% 9%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 75 100% 56%;
+    --accent-foreground: 0 0% 6%;
+
+    --success: 145 70% 50%;
+    --danger: 0 80% 60%;
+    --warn: 38 95% 56%;
+
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 75 100% 56%;
+
+    --radius: 0.625rem;
+  }
+
+  html.light {
+    --background: 40 33% 98%;
+    --foreground: 0 0% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+
+    --elevated: 0 0% 100%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+
+    --primary: 75 80% 36%;
+    --primary-foreground: 40 33% 98%;
+
+    --secondary: 40 20% 94%;
+    --secondary-foreground: 0 0% 12%;
+
+    --muted: 40 18% 94%;
+    --muted-foreground: 0 0% 38%;
+
+    --accent: 75 80% 36%;
+    --accent-foreground: 40 33% 98%;
+
+    --success: 145 60% 36%;
+    --danger: 0 75% 48%;
+    --warn: 38 90% 44%;
+
+    --border: 40 12% 88%;
+    --input: 40 12% 88%;
+    --ring: 75 80% 36%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  html,
+  body,
+  #root {
+    @apply min-h-screen;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings:
+      "ss01" on,
+      "ss02" on,
+      "cv11" on;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.85);
+    color: hsl(var(--primary-foreground));
+  }
+
+  /* Tabular figures for any element marked .tabular */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum", "ss01";
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 8px;
+    border: 2px solid hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.6);
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply container mx-auto;
+  }
+
+  /* Display heading: tight, heavy, near-black weight */
+  .display-1 {
+    @apply font-display font-semibold tracking-tightest leading-[0.92];
+    font-feature-settings: "ss01", "ss02", "cv11";
+  }
+  .display-2 {
+    @apply font-display font-semibold tracking-tighter leading-[0.95];
+    font-feature-settings: "ss01", "ss02", "cv11";
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-widest text-muted-foreground;
+  }
+
+  /* Subtle dot before eyebrow */
+  .eyebrow-dot::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    background: hsl(var(--primary));
+    box-shadow: 0 0 12px hsl(var(--primary) / 0.7);
+  }
+
+  /* Surface = elevated card */
+  .surface {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+  .surface-muted {
+    background: hsl(var(--muted) / 0.5);
+    border: 1px solid hsl(var(--border));
+  }
+
+  /* Pinstripe dotted line for "data-feel" */
+  .data-line {
+    background-image: radial-gradient(
+      circle,
+      hsl(var(--muted-foreground) / 0.4) 1px,
+      transparent 1px
+    );
+    background-size: 6px 1px;
+    background-repeat: repeat-x;
+    background-position: center;
+  }
+
+  /* Hero grid backdrop */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, hsl(var(--border) / 0.7) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.7) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 25%,
+      black 30%,
+      transparent 100%
+    );
+  }
+
+  /* Faint orb behind hero */
+  .hero-orb {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-orb::before {
+    content: "";
+    position: absolute;
+    inset: -20% 0 0 0;
+    margin: auto;
+    width: 720px;
+    height: 720px;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle at center,
+      hsl(var(--primary) / 0.18) 0%,
+      transparent 60%
+    );
+    filter: blur(40px);
+    @apply animate-pulse-soft;
+  }
+
+  /* Outline-only chip for status */
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium border;
+    border-color: hsl(var(--border));
+    background: hsl(var(--card));
+    color: hsl(var(--muted-foreground));
+  }
+  .chip-primary {
+    border-color: hsl(var(--primary) / 0.5);
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+  }
+
+  /* Hairline divider */
+  .hairline {
+    @apply border-t border-border;
+  }
+
+  /* Card with stronger ring on hover */
+  .ring-card {
+    @apply transition-all duration-300;
+    box-shadow: inset 0 0 0 1px hsl(var(--border));
+  }
+  .ring-card:hover {
+    box-shadow:
+      inset 0 0 0 1px hsl(var(--foreground) / 0.18),
+      0 30px 60px -30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .mask-fade-r {
+    mask-image: linear-gradient(to right, black 60%, transparent 100%);
+  }
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+}
